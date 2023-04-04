@@ -1,23 +1,65 @@
 <template>
-   <div>
+   <el-row class="bg-indigo-500 min-h-screen">
+      <el-col :span="16" class="flex items-center justify-center text-light-50 text-7xl">
+         欢迎光临
+      </el-col>
+      <el-col :span="8" class="bg-light-500 flex items-center justify-center flex-col">
+         <h1 class="text-dark-900 font-bold text-4xl">
+            欢迎回来
+         </h1>
+         <div class="my-4 flex items-center justify-center  space-x-2">
+            <span class="h-[1px] w-16 bg-gray-200 "></span>
+            <span class="text-gray-600">账号密码登录</span>
+            <span class="h-[1px] w-16 bg-gray-200"></span>
+         </div>
+         <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" class="demo-ruleForm" :size="formSize" status-icon>
+            <el-form-item prop="name" class="w-[250px]">
+               <el-input v-model="ruleForm.name" placeholder="请输入账号" />
+            </el-form-item>
+            <el-form-item prop="pasward" class="w-[250px]">
+               <el-input v-model="ruleForm.pasward" placeholder="请输入密码" />
+            </el-form-item>
+         </el-form>
+         <el-form-item >
+            <el-button type="primary" @click="submitForm(ruleFormRef)" class="w-[250px] rounded-4xl">
+               登录
+            </el-button>
 
-      <el-button type='success'>11</el-button>
-
-      <button class="tn" @click="tzzy">
-         2222
-      </button>
-    
-   </div>
+         </el-form-item>
+      </el-col>
+   </el-row>
 </template>
 <script setup>
 import { useRoute, useRouter } from 'vue-router';
 import { ref, reactive, onMounted, } from 'vue';
 const router = useRouter();
-const tzzy = () => {
-   router.push("/");
-   console.log(111);
-
+const ruleFormRef = ref()
+const ruleForm = reactive({
+   name: '',
+   pasward: ''
+})
+const rules = reactive({
+   name: [
+      { required: true, message: '请输入账号', trigger: 'blur' },
+      { min: 3, max: 5, message: '账号格式错误', trigger: 'blur' },
+   ],
+   pasward: [
+      { required: true, message: '请输入密码', trigger: 'blur' },
+      { min: 6, max: 12, message: '密码长度在5到12位', trigger: 'blur' },
+   ],
+})
+//登录事件
+const submitForm = async (formEl) => {
+   if (!formEl) return
+   await formEl.validate((valid, fields) => {
+      if (valid) {
+         console.log('submit!')
+      } else {
+         console.log('error submit!', fields)
+      }
+   })
 }
+
 
 
 </script>
