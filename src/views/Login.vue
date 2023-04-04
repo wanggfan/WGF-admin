@@ -20,7 +20,7 @@
                <el-input v-model="ruleForm.pasward" placeholder="请输入密码" />
             </el-form-item>
          </el-form>
-         <el-form-item >
+         <el-form-item>
             <el-button type="primary" @click="submitForm(ruleFormRef)" class="w-[250px] rounded-4xl">
                登录
             </el-button>
